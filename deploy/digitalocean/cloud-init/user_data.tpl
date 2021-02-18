@@ -18,13 +18,14 @@ git clone $REPO_DIALER
 cd oml-dialer
 git checkout $RELEASE
 
-if [[ "$mysql_host" == "localhost" ]]
+if [[ "${mysql_host}" == "localhost" ]]
 then
+cd ..
 git clone $REPO_MYSQL
 chmod +x ./oml-mysql/deploy/onpremise/cloud-init/user_data.sh
-sh ./oml-mysql/deploy/onpremise/cloud-init/user_data.sh $mysql_username $mysql_password localhost
+sh ./oml-mysql/deploy/onpremise/cloud-init/user_data.sh ${mysql_username} ${mysql_password} ${mysql_host}
 fi
-chmod +x ./oml-dialer/deploy/digitalocean/
-sh ./oml-dialer/deploy/digitalocean/cloud-init/install_dialer.sh $mysql_host $mysql_database $mysql_username $mysql_password
+chmod +x ./oml-dialer/deploy/digitalocean/cloud-init/install_dialer.sh
+sh ./oml-dialer/deploy/digitalocean/cloud-init/install_dialer.sh ${mysql_host} ${mysql_database} ${mysql_username} ${mysql_password}
 
 reboot
