@@ -21,11 +21,10 @@ git checkout $RELEASE
 if [[ "$mysql_host" == "localhost" ]]
 then
 git clone $REPO_MYSQL
-cd oml-mysql
-chmod +x ./mariadb/mariadb.sh
-sh ./mariadb/mariadb.sh $mysql_username $mysql_password localhost
+chmod +x ./oml-mysql/deploy/onpremise/cloud-init/user_data.sh
+sh ./oml-mysql/deploy/onpremise/cloud-init/user_data.sh $mysql_username $mysql_password localhost
 fi
-chmod +x ./dialer/files/dialer.sh
-sh ./dialer/files/dialer.sh $mysql_host $mysql_database $mysql_username $mysql_password
+chmod +x ./oml-dialer/deploy/digitalocean/
+sh ./oml-dialer/deploy/digitalocean/cloud-init/install_dialer.sh $mysql_host $mysql_database $mysql_username $mysql_password
 
 reboot
